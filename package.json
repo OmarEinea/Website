@@ -1,0 +1,35 @@
+{
+  "name": "website",
+  "author": "Omar Einea",
+  "description": "My Interactive Resume Website",
+  "repository": "github:OmarEinea/Website",
+  "license": "MIT",
+  "version": "2.0.1",
+  "main": "webpack.config.js",
+  "devDependencies": {
+    "@material-ui/core": "^4.11.3",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-react-html-attrs": "^2.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^3.4.1",
+    "mini-css-extract-plugin": "^2.6.0",
+    "node-fetch": "^2.6.1",
+    "postcss": "^8.4.12",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "terser-webpack-plugin": "^5.3.1",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4",
+    "whatwg-fetch": "^3.6.2"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode production && node minify.js"
+  }
+}
