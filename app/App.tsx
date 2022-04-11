@@ -1,20 +1,20 @@
-import { Component } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
-import { MuiThemeProvider, createMuiTheme, Grow, Zoom, Slide } from 'material-ui';
-import { Grid, Toolbar, Button, Avatar, Typography, Hidden } from 'material-ui';
-import { url, colors } from 'db';
-import Optimize from './utils/Optimize';
-import Home from './home/Home';
-import Cards from './cards/Cards';
-import Skills from './skills/Skills';
-import Profiles from './profiles/Profiles';
-import Timeline from './timeline/Timeline';
-import Footer from './utils/Footer';
+import { MuiThemeProvider, createMuiTheme, Grow, Zoom, Slide } from '@material-ui/core';
+import { Grid, Toolbar, Button, Avatar, Typography, Hidden } from '@material-ui/core';
+import { url, colors } from './utils/db';
+import { Optimize } from './utils/Optimize';
+import { Home } from './home/Home';
+import { Cards } from './cards/Cards';
+import { Skills } from './skills/Skills';
+import { Profiles } from './profiles/Profiles';
+import { Timeline } from './timeline/Timeline';
+import { Footer } from './utils/Footer';
 import './App.css';
 
-class App extends Component {
+class App extends React.Component {
   state = { page: 'home', mounted: true };
-  pages = {
+  private pages: Record<string, React.JSXElementConstructor<any>> = {
     home: () => <Home goto={this.goto.bind(this)} />,
     projects: () => <Cards type="Project" />,
     skills: () => <Skills />,
@@ -23,12 +23,12 @@ class App extends Component {
     certificates: () => <Cards type="Cert" />,
     timeline: () => <Timeline />
   };
-  buttonColor = (page, index) => ({
+  buttonColor = (page: string, index: number) => ({
     color: colors[index], boxShadow: this.state.page === page ?
       'inset 0px 0px 0px 1px ' + colors[index] : 'unset'
   });
 
-  goto(page, event, now) {
+  goto(page: string, event?: React.MouseEvent, now = false) {
     if (event) event.preventDefault();
     if (page === this.state.page) return;
     const switchPage = () => {
@@ -48,7 +48,7 @@ class App extends Component {
     const page = location.hash.slice(1);
     if (page in this.pages && page !== 'home') {
       history.replaceState(null, '', page);
-      this.goto(page, null, true);
+      this.goto(page, undefined, true);
     }
     window.addEventListener('popstate', () => {
       this.goto(location.pathname.slice(1) || 'home');
@@ -56,14 +56,16 @@ class App extends Component {
   }
 
   render() {
-    const { state, pages } = this, CurrentPage = pages[state.page], notHome = state.page !== 'home';
+    const { state, pages } = this;
+    const CurrentPage = pages[state.page];
+    const isNotHome = state.page !== 'home';
     return (
       <Grid id="root" container direction="column">
         <div id="top-shadow" />
-        <Toolbar id="toolbar" class="container">
-          <Hidden smDown={!notHome}>
-            <div style={{ width: '34.5%', marginLeft: 12 }} class={notHome ? 'show' : 'hide'}>
-              <Grow in={notHome} timeout={400} direction="left" unmountOnExit>
+        <Toolbar id="toolbar" className="container">
+          <Hidden smDown={!isNotHome}>
+            <div style={{ width: '34.5%', marginLeft: 12 }} className={isNotHome ? 'show' : 'hide'}>
+              <Grow in={isNotHome} timeout={400} unmountOnExit>
                 <a href="/" onClick={(event) => this.goto('home', event)} id="home-link">
                   <Avatar style={{ border: '1px solid #616161', marginRight: 12 }} src={url('my/logo.jpg')} />
                   <Typography variant="h5" style={{ lineHeight: '42px', color: '#4F4D4E' }}>
@@ -81,8 +83,8 @@ class App extends Component {
               </span>
             </Slide>
           )}
-          <Zoom in={notHome} timeout={{ enter: 300, exit: 200 }}>
-            <div class="divider" />
+          <Zoom in={isNotHome} timeout={{ enter: 300, exit: 200 }}>
+            <div className="divider" />
           </Zoom>
         </Toolbar>
         <Grow in={state.mounted} timeout={{ enter: 500, exit: 400 }}>
@@ -96,9 +98,7 @@ class App extends Component {
 
 render(
   <MuiThemeProvider theme={createMuiTheme({
-    typography: {
-      fontFamily: 'Quicksand', useNextVariants: true
-    }
+    typography: { fontFamily: 'Quicksand' }
   })}>
     <App />
   </MuiThemeProvider>,

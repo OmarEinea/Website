@@ -1,21 +1,21 @@
-import { PureComponent } from 'react';
-import { Card, CardMedia, Button, Typography, Grid } from 'material-ui';
-import { url, profile } from 'db';
-import Gallery from 'gallery';
+import React from 'react';
+import { Card, CardMedia, Button, Typography, Grid } from '@material-ui/core';
+import { Gallery } from '../../utils/gallery/Gallery';
+import { url, profile } from '../../utils/db';
 import './Card.css';
 
-export default class ProfileCard extends PureComponent {
-  state = { image: false };
+export class ProfileCard extends React.PureComponent<{ name: string, images: string, use?: string }> {
+  public state = { image: false };
 
   render() {
     const { name, images, children, use = '', ...props } = this.props;
     const { image } = this.state, [text, icon] = use.split(';');
     return (
-      <Card class="card" {...props}>
+      <Card className="card" {...props}>
         <CardMedia style={{ paddingTop: '64%', position: 'relative', backgroundPosition: 'left' }}
           image={url(`profiles/${name}/preview.jpg`)} onClick={() => this.setState({ image: true })}>
-          <Button class="image-button"><i /></Button>
-          <i class="fas fa-images"
+          <Button className="image-button"><i /></Button>
+          <i className="fas fa-images"
             style={{ position: 'absolute', bottom: 24, right: 24, fontSize: 20, color: '#757575' }} />
         </CardMedia>
         {image && <Gallery title={name} images={images} format="png"
@@ -28,9 +28,9 @@ export default class ProfileCard extends PureComponent {
               </a>
             </Grid>
             <Grid item>
-              <Typography class="profile-use" variant="body1" style={{ color: '#616161', lineHeight: 1.4 }}>
+              <Typography className="profile-use" variant="body1" style={{ color: '#616161', lineHeight: 1.4 }}>
                 <b style={{ color: '#9e9e9e', fontSize: 14 }}>Main Use:</b>
-                <br /><i class={'fa fa-fw fa-' + icon} /> {text}
+                <br /><i className={'fa fa-fw fa-' + icon} /> {text}
               </Typography>
             </Grid>
           </Grid>}

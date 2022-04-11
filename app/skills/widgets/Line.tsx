@@ -1,7 +1,7 @@
-import { PureComponent } from 'react';
-import { Grid, Typography, Tooltip } from 'material-ui';
+import React from 'react';
+import { Grid, Typography, Tooltip } from '@material-ui/core';
 
-export default class Line extends PureComponent {
+export class Line extends React.PureComponent<{ skill: [string, number] }> {
   render() {
     const [name, rate] = this.props.skill;
     return (

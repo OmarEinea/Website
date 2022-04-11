@@ -1,12 +1,12 @@
-import { PureComponent } from 'react';
-import { Grid, Typography, CircularProgress, Tooltip } from 'material-ui';
-import { skill } from 'db';
+import React from 'react';
+import { Grid, Typography, CircularProgress, Tooltip } from '@material-ui/core';
+import { skill } from '../../utils/db';
 
-export default class Circle extends PureComponent {
+export class Circle extends React.PureComponent<{ skill: [string, number] }> {
   render() {
     const [name, rate] = this.props.skill;
     return (
-      <Grid item direction="column" align="center" style={{ margin: 16 }}>
+      <Grid item direction="column" alignContent="center" style={{ margin: 16 }}>
         <Tooltip title={rate + '%'} placement="top">
           <div style={{ position: 'relative', marginBottom: 8 }}>
             <CircularProgress variant="determinate" value={100} thickness={7} size={150}

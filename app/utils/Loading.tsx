@@ -1,9 +1,10 @@
-import { Component } from 'react';
-import { Grid, CircularProgress } from 'material-ui';
-import { colors } from 'db';
+import React from 'react';
+import { Grid, CircularProgress } from '@material-ui/core';
+import { colors } from './db';
 
-export default class Loading extends Component {
-  state = { index: colors.length - 1 };
+export class Loading extends React.Component<{ style?: Record<string, any> }, { index: number }> {
+  private colorChanger: NodeJS.Timer | undefined;
+  public state = { index: colors.length - 1 };
 
   componentWillMount() {
     let direction = -1;
@@ -18,7 +19,7 @@ export default class Loading extends Component {
   }
 
   render() {
-    const { props: { style }, state: { index } } = this;
+    const { props: { style = {} }, state: { index } } = this;
     return (
       <Grid container justify="center" alignItems="center"
         style={{ flex: 1, marginBottom: 16, ...style }}>
@@ -28,6 +29,6 @@ export default class Loading extends Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.colorChanger);
+    if (this.colorChanger) clearInterval(this.colorChanger);
   }
 }

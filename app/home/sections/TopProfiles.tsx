@@ -1,11 +1,24 @@
-import { PureComponent } from 'react';
-import { Grid, Grow } from 'material-ui';
-import { GitHub, StackOverflow, XdaDevelopers } from '~/profiles/widgets';
+import React from 'react';
+import { Grid, Grow } from '@material-ui/core';
+import { GitHub, IGithubData } from '../../profiles/widgets/GitHub';
+import { IStackOverflowData, StackOverflow } from '../../profiles/widgets/StackOverflow';
+import { IXdaDevelopersData, XdaDevelopers } from '../../profiles/widgets/XdaDevelopers';
 
-export default class TopProfiles extends PureComponent {
-  state = { GitHub: {}, StackOverflow: {}, XdaDevelopers: {} };
+interface IProps {
+  visible: boolean;
+  data: [string, string][];
+}
 
-  componentWillReceiveProps(props) {
+interface IState {
+  GitHub: IGithubData;
+  StackOverflow: IStackOverflowData;
+  XdaDevelopers: IXdaDevelopersData;
+}
+
+export class TopProfiles extends React.PureComponent<IProps, IState> {
+  public state = { GitHub: {}, StackOverflow: {}, XdaDevelopers: {} } as IState;
+
+  componentWillReceiveProps(props: IProps) {
     if (props.data) this.setState(Object.assign({}, ...props.data.map(([k, v]) => ({ [k]: v }))));
   }
 
@@ -15,21 +28,21 @@ export default class TopProfiles extends PureComponent {
       <Grid container justify="center">
         <Grow in={visible} timeout={600}>
           <Grid item md={4} sm={6} xs={12} >
-            <div class="box">
+            <div className="box">
               <GitHub data={state.GitHub} />
             </div>
           </Grid>
         </Grow>
         <Grow in={visible} timeout={800}>
           <Grid item md={4} sm={6} xs={12}>
-            <div class="box">
+            <div className="box">
               <StackOverflow data={state.StackOverflow} />
             </div>
           </Grid>
         </Grow>
         <Grow in={visible} timeout={1000}>
           <Grid item md={4} sm={6} xs={12}>
-            <div class="box">
+            <div className="box">
               <XdaDevelopers data={state.XdaDevelopers} />
             </div>
           </Grid>

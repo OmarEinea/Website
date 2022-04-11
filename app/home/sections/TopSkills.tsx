@@ -1,12 +1,22 @@
-import { PureComponent } from 'react';
-import { Grid, Grow } from 'material-ui';
-import Circle from '~/skills/widgets/Circle';
-import Line from '~/skills/widgets/Line';
+import React from 'react';
+import { Grid, Grow } from '@material-ui/core';
+import { Circle } from '../../skills/widgets/Circle';
+import { Line } from '../../skills/widgets/Line';
 
-export default class TopSkills extends PureComponent {
+interface IProps {
+  visible: boolean;
+  data: IState;
+}
+
+interface IState {
+  circles: string[];
+  lines: string[];
+}
+
+export class TopSkills extends React.PureComponent<IProps, IState> {
   state = { circles: [], lines: [] };
 
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps(props: IProps) {
     if (props.data) this.setState(props.data);
   }
 
@@ -16,14 +26,14 @@ export default class TopSkills extends PureComponent {
       <Grid container>
         <Grow in={visible} timeout={400}>
           <Grid container item md={7} xs={12}>
-            <Grid container justify="space-around" class="box">
+            <Grid container justify="space-around" className="box">
               {circles.map(skill => <Circle skill={skill} />)}
             </Grid>
           </Grid>
         </Grow>
         <Grow in={visible} timeout={700}>
           <Grid container item md={5} xs={12}>
-            <Grid container direction="column" class="box">
+            <Grid container direction="column" className="box">
               {lines.map(skill => <Line skill={skill} />)}
             </Grid>
           </Grid>
