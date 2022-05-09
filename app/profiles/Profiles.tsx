@@ -34,7 +34,7 @@ export class Profiles extends React.Component<any, IState> {
     if (!dev) return <Loading />;
     return (
       <Grid container className="container" style={{ marginBottom: 24, marginTop: 8 }}>
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           <Grow in timeout={600}>
             <Grid item md={4} sm={6} xs={12}>
               <ProfileCard name="GitHub" images={dev.GitHub.images}>
@@ -57,13 +57,13 @@ export class Profiles extends React.Component<any, IState> {
             </Grid>
           </Grow>
         </Grid>
-        {allProfiles.map(([category, profiles]) =>
-          <Grid container justify="center">
+        {allProfiles.map(([category, profiles], i) =>
+          <Grid container key={i} justifyContent="center">
             <Fade in>
               <Typography variant="h4" className="category">{category}</Typography>
             </Fade>
-            {profiles.map(([title, data]) =>
-              <Grid item md={4} sm={6} xs={12}>
+            {profiles.map(([title, data], i) =>
+              <Grid item key={i} md={4} sm={6} xs={12}>
                 <ProfileCard name={title} images={data.images} use={data.use} />
               </Grid>
             )}

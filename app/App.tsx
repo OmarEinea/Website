@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { MuiThemeProvider, createMuiTheme, Grow, Zoom, Slide } from '@material-ui/core';
+import { MuiThemeProvider, createTheme, Grow, Zoom, Slide } from '@material-ui/core';
 import { Grid, Toolbar, Button, Avatar, Typography, Hidden } from '@material-ui/core';
 import { url, colors } from './utils/db';
 import { Optimize } from './utils/Optimize';
@@ -13,7 +13,7 @@ import { Footer } from './utils/Footer';
 import './App.css';
 
 class App extends React.Component {
-  state = { page: 'home', mounted: true };
+  public state = { page: 'home', mounted: true };
   private pages: Record<string, React.JSXElementConstructor<any>> = {
     home: () => <Home goto={this.goto.bind(this)} />,
     projects: () => <Cards type="Project" />,
@@ -23,12 +23,12 @@ class App extends React.Component {
     certificates: () => <Cards type="Cert" />,
     timeline: () => <Timeline />
   };
-  buttonColor = (page: string, index: number) => ({
+  private buttonColor = (page: string, index: number) => ({
     color: colors[index], boxShadow: this.state.page === page ?
       'inset 0px 0px 0px 1px ' + colors[index] : 'unset'
   });
 
-  goto(page: string, event?: React.MouseEvent, now = false) {
+  private goto(page: string, event?: React.MouseEvent, now = false) {
     if (event) event.preventDefault();
     if (page === this.state.page) return;
     const switchPage = () => {
@@ -76,7 +76,7 @@ class App extends React.Component {
             </div>
           </Hidden>
           {Object.keys(pages).slice(1).map((page, index) =>
-            <Slide in timeout={(6 - index) * 150} direction="down">
+            <Slide in key={index} timeout={(6 - index) * 150} direction="down">
               <span>
                 <Button href={page} style={this.buttonColor(page, index)}
                   onClick={(event) => this.goto(page, event)}>{page}</Button>
@@ -97,7 +97,7 @@ class App extends React.Component {
 }
 
 render(
-  <MuiThemeProvider theme={createMuiTheme({
+  <MuiThemeProvider theme={createTheme({
     typography: { fontFamily: 'Quicksand' }
   })}>
     <App />

@@ -60,7 +60,7 @@ export class Timeline extends React.Component<{}, IState> {
           const [[eventText, eventDirection = '']] = events[year] || [[]];
           const calendarYear = +year + 1994;
           return (
-            <Grow in timeout={(years.length - index) * 100 + 200}>
+            <Grow in key={index} timeout={(years.length - index) * 100 + 200}>
               <div className={'year' + (cityStart && ' start' || '') + (cityCount-- === 0 && ' end' || '')}>
                 {showEvents && cityStart && <span>
                   <b className="city-vline"><i />

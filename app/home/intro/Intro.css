@@ -38,12 +38,13 @@
   padding: 16px 8px 0;
 }
 
-#bio > div {
+#bio>div {
   position: relative;
   height: 100%;
 }
 
-#root .paper, .paper .title,
+#root .paper,
+.paper .title,
 .paper .title p {
   transition: all .5s cubic-bezier(.4, 0, .2, 1) .2s;
 }
@@ -99,10 +100,8 @@
 
 .paper.expand .title p {
   font-size: 28px;
-  transform: translate(
-    calc(50% + 40px),
-    calc(-50% - 34px)
-  );
+  transform: translate(calc(50% + 40px),
+      calc(-50% - 34px));
 }
 
 .paper .title span,

@@ -21,7 +21,7 @@ export class CertCard extends React.PureComponent<{ data: IData }> {
         </CardMedia>
         {image && <Gallery title={title} folder="certs" onClose={() => this.setState({ image: false })} />}
         <ClickAwayListener onClickAway={() => { if (text) this.setState({ text: false }) }}>
-          <Collapse in={text} collapsedHeight="78px" timeout="auto" className={'collapse' + (scroll ? ' scroll' : '')}
+          <Collapse in={text} collapsedSize="78px" timeout="auto" className={'collapse' + (scroll ? ' scroll' : '')}
             onEntered={() => this.setState({ scroll: true })} onExit={() => this.setState({ scroll: false })}>
             <CardContent style={{ padding: '14px 16px' }}>
               <Typography variant="h6" style={{ fontSize: 19, marginBottom: 8, color: '#424242' }} noWrap>

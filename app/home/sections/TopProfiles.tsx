@@ -25,7 +25,7 @@ export class TopProfiles extends React.PureComponent<IProps, IState> {
   render() {
     const { state, props: { visible } } = this;
     return (
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         <Grow in={visible} timeout={600}>
           <Grid item md={4} sm={6} xs={12} >
             <div className="box">

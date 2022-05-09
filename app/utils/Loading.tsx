@@ -21,7 +21,7 @@ export class Loading extends React.Component<{ style?: Record<string, any> }, { 
   render() {
     const { props: { style = {} }, state: { index } } = this;
     return (
-      <Grid container justify="center" alignItems="center"
+      <Grid container justifyContent="center" alignItems="center"
         style={{ flex: 1, marginBottom: 16, ...style }}>
         <CircularProgress size={64} style={{ color: colors[index] }} />
       </Grid>

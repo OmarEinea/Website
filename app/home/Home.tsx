@@ -14,7 +14,7 @@ interface IProps {
 }
 
 export class Home extends React.Component<IProps> {
-  state = { data: {} as Record<string, any>, entered: 0 };
+  public state = { data: {} as Record<string, any>, entered: 0 };
   private tags: HTMLElement[] = [];
   private prevScroll = 0;
   private sections: [string, [React.JSXElementConstructor<any>, string]][] = Object.entries({
@@ -46,10 +46,10 @@ export class Home extends React.Component<IProps> {
       <Grid container>
         <Intro data={data.intro} />
         {sections.map(([title, [Section, icon]], index) =>
-          <Grid container style={{ background: index === 0 ? '#90A4AE55' : index % 2 === 1 ? '#FFFFFFAA' : '' }}>
+          <Grid container key={index} style={{ background: index === 0 ? '#90A4AE55' : index % 2 === 1 ? '#FFFFFFAA' : '' }}>
             <Grid container className="container" style={{ paddingTop: 40, paddingBottom: 80, minHeight: 512 }}>
               <Fade in={index < entered} timeout={800}>
-                <Grid container justify="center" className="section">
+                <Grid container justifyContent="center" className="section">
                   <Typography variant="h3" className="headline" noWrap
                     style={{ padding: '40px 0', textTransform: 'capitalize' }}>
                     <i className={'fas fa-' + icon} style={{ paddingRight: 16 }} />

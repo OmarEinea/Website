@@ -17,7 +17,7 @@ export class ProjectCard extends React.PureComponent<{ full: number, data: IData
     return (
       <Card className="card">
         <ClickAwayListener onClickAway={() => { if (text) this.setState({ text: !text }) }}>
-          <Collapse collapsedHeight={`${full ? 75 : 54}px`} timeout="auto" className={'collapse down' + (scroll ? ' scroll' : '')}
+          <Collapse collapsedSize={`${full ? 75 : 54}px`} timeout="auto" className={'collapse down' + (scroll ? ' scroll' : '')}
             in={text} onEntered={() => this.setState({ scroll: true })} onExit={() => this.setState({ scroll: false })}>
             <CardHeader subheader={full && type} style={{ padding: '14px 16px', height: full || 26 }}
               title={<b style={{ fontSize: 19, color: '#424242' }}>{title}</b>}
@@ -40,8 +40,8 @@ export class ProjectCard extends React.PureComponent<{ full: number, data: IData
           onClose={() => this.setState({ image: false })} format="png" />}
         <CardActions style={{ padding: 16 }}>
           <div style={{ flex: 1, height: 44 }}>
-            {skills.split(',').map(title =>
-              <Tooltip title={title}>
+            {skills.split(',').map((title, i) =>
+              <Tooltip key={i} title={title}>
                 <img width="44" style={{ marginRight: 10 }} src={skill(title)} />
               </Tooltip>
             )}

@@ -35,13 +35,13 @@ export class Cards extends React.Component<IProps, { allCards: [string, any][] }
     if (!state || !Card) return <Loading />;
     return (
       <Grid container className="container" style={{ marginBottom: 24 }}>
-        {state.allCards.map(([category, cards]) =>
-          <Grid container justify="center">
+        {state.allCards.map(([category, cards], i) =>
+          <Grid container key={i} justifyContent="center">
             <Fade in>
               <Typography variant="h4" className="category">{category}</Typography>
             </Fade>
             {cards.map((cardData: any, index: number) =>
-              <Grow in timeout={(index + 1) * 400}>
+              <Grow in key={index} timeout={(index + 1) * 400}>
                 <Grid item md={wide ? 6 : 4} sm={6} xs={12}>
                   <Card data={cardData} />
                 </Grid>

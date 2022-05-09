@@ -34,28 +34,32 @@ export class Intro extends React.Component<IProps, IState> {
     if (!data) return;
     const content: IContent = {};
     const { resume, ...papers } = data;
-    this.papers.map(([title, _], index) => {
+    this.papers.map(([title], index) => {
       if (index <= 3) {
-        content[title] = papers[title].slice(1).map(line => {
+        content[title] = papers[title].slice(1).map((line, i) => {
           const [text, icon] = line.split(';').reverse();
           const [body, head] = text.split(':').reverse();
-          return <Typography className="line" variant="subtitle1">
+          return <Typography key={i} className="line" variant="subtitle1">
             {icon && <i className={'fas fa-fw fa-' + icon} style={{ marginRight: 8 }} />}
             {head && <b>{head}:</b>}{body}
           </Typography>;
         });
       } else {
         content[title] = <Table style={{ marginTop: 8 }}>
-          <TableBody>{papers[title].map(row =>
-            <TableRow>{row.split(',').map(cell =>
-              <TableCell dangerouslySetInnerHTML={{ __html: cell }}
-                style={{ padding: '16px 12px', fontSize: '0.82rem' }} />
-            )}</TableRow>
-          )}</TableBody>
+          <TableBody>
+            {papers[title].map((row, i) =>
+              <TableRow key={i}>
+                {row.split(',').map((cell, j) =>
+                  <TableCell key={j} dangerouslySetInnerHTML={{ __html: cell }}
+                    style={{ padding: '16px 12px', fontSize: '0.82rem' }} />
+                )}
+              </TableRow>
+            )}
+          </TableBody>
         </Table>;
       }
     });
-    return content;
+    this.setState({ content, resume });
   };
 
   constructor(props: IProps) {
@@ -81,7 +85,7 @@ export class Intro extends React.Component<IProps, IState> {
     return (
       <Grow in>
         <Grid container className="container" style={{ paddingBottom: 80 }}>
-          <Grid item md={4} xs={12} alignContent="center" id="intro">
+          <Grid item md={4} xs={12} id="intro" className="center-text">
             <div style={{ position: 'relative', width: 324, height: 324 }}>
               <Avatar className={'avatar' + (expand !== 'logo' ? ' expand' : '')} style={{ left: 0 }}
                 src={url('my/photo.jpg')} onClick={() => this.setState({ expand: undefined })} />
@@ -111,19 +115,19 @@ export class Intro extends React.Component<IProps, IState> {
           <Grid item md={8} xs={12} id="bio">
             <Grid container>
               {this.papers.map(([title, paper], index) =>
-                <Paper style={paper.style} elevation={expand === title ? 3 : 1}
+                <Paper key={index} style={paper.style} elevation={expand === title ? 3 : 1}
                   className={'paper' + (expand === title ? ' expand' : '')}
                   onMouseEnter={() => this.setState({ expand: title })}
                   onMouseLeave={() => this.setState({ expand: undefined })}>
                   <div style={{ borderTopColor: colors[index] }} className="content">{content[title]}</div>
-                  <Grid container className="title" direction="column" justify="center">
+                  <Grid container className="title" justifyContent="center">
                     <i className={'fas fa-fw fa-' + paper.icon} />
                     <Typography><span>{title}</span></Typography>
                   </Grid>
                 </Paper>
               )}
               <div className="paper" style={{ left: `${2 * third}%`, top: `${2 * third}%` }}>
-                <Grid container className="title" direction="column" justify="center" onClick={() => {
+                <Grid container className="title" justifyContent="center" onClick={() => {
                   const bioElement = document.getElementById('bio');
                   if (bioElement) window.scrollBy(0, bioElement.getBoundingClientRect().bottom + 100)
                 }}>

@@ -33,13 +33,13 @@ export class Skills extends React.Component<{}, { circles: ISkillData[], lines: 
     if (!state) return <Loading />;
     return (
       <Grid container className="container" style={{ marginBottom: 24 }}>
-        {state.circles.map(([category, skills]) =>
-          <Grid container justify="center">
+        {state.circles.map(([category, skills], i) =>
+          <Grid container key={i} justifyContent="center">
             <Fade in>
               <Typography variant="h4" className="category">{category}</Typography>
             </Fade>
             {skills.map((skill, index) =>
-              <Grow in timeout={(index + 1) * 200}>
+              <Grow in key={index} timeout={(index + 1) * 200}>
                 <Paper style={{ margin: 8 }} elevation={1}>
                   <Circle skill={skill} />
                 </Paper>
@@ -48,11 +48,11 @@ export class Skills extends React.Component<{}, { circles: ISkillData[], lines: 
           </Grid>
         )}
         <div style={{ width: '100%' }}>
-          {state.lines.map(([category, skills]) =>
-            <div className="lines-list">
+          {state.lines.map(([category, skills], i) =>
+            <div key={i} className="lines-list">
               <Typography variant="h4" className="category">{category}</Typography>
               <Paper style={{ margin: 8, padding: '12px 8px 16px' }} elevation={1}>
-                {skills.map(skill => <Line skill={skill} />)}
+                {skills.map((skill, i) => <Line key={i} skill={skill} />)}
               </Paper>
             </div>
           )}

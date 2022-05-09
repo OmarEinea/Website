@@ -6,7 +6,7 @@ export class Circle extends React.PureComponent<{ skill: [string, number] }> {
   render() {
     const [name, rate] = this.props.skill;
     return (
-      <Grid item direction="column" alignContent="center" style={{ margin: 16 }}>
+      <Grid item direction="column" alignItems="center" style={{ margin: 16 }}>
         <Tooltip title={rate + '%'} placement="top">
           <div style={{ position: 'relative', marginBottom: 8 }}>
             <CircularProgress variant="determinate" value={100} thickness={7} size={150}

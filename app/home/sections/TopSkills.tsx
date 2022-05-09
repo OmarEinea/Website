@@ -26,15 +26,15 @@ export class TopSkills extends React.PureComponent<IProps, IState> {
       <Grid container>
         <Grow in={visible} timeout={400}>
           <Grid container item md={7} xs={12}>
-            <Grid container justify="space-around" className="box">
-              {circles.map(skill => <Circle skill={skill} />)}
+            <Grid container justifyContent="space-around" className="box">
+              {circles.map((skill, i) => <Circle key={i} skill={skill} />)}
             </Grid>
           </Grid>
         </Grow>
         <Grow in={visible} timeout={700}>
           <Grid container item md={5} xs={12}>
             <Grid container direction="column" className="box">
-              {lines.map(skill => <Line skill={skill} />)}
+              {lines.map((skill, i) => <Line key={i} skill={skill} />)}
             </Grid>
           </Grid>
         </Grow>

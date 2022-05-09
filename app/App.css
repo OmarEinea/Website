@@ -1,4 +1,6 @@
-html, body, #app {
+html,
+body,
+#app {
   scroll-behavior: smooth;
   height: 100%;
 }
@@ -13,15 +15,17 @@ body {
   position: relative;
 }
 
-#root::before, #footer::before {
+#root::before,
+#footer::before {
   background: url(/images/pattern.jpg);
   opacity: .05;
   z-index: -1;
   content: "";
 }
 
-#root::before, #footer::before,
-#footer > div:first-child {
+#root::before,
+#footer::before,
+#footer>div:first-child {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -47,12 +51,18 @@ body {
   left: -10px;
 }
 
-.white-text, .white-text * {
+.white-text,
+.white-text * {
   color: #FAFAFA !important;
 }
 
 b {
   font-weight: 500;
+}
+
+.center-text {
+  text-align: center;
+  text-align: -webkit-center;
 }
 
 .container {
@@ -71,7 +81,8 @@ h4.category {
   width: 100%;
 }
 
-button.mini, a.mini {
+button.mini,
+a.mini {
   width: 40px;
   height: 40px;
   padding: 0;
@@ -94,7 +105,7 @@ button.mini, a.mini {
     margin-bottom: 16px;
   }
 
-  #toolbar > div:not(.divider) {
+  #toolbar>div:not(.divider) {
     display: flex;
     flex-basis: 100%;
     justify-content: center;
@@ -110,7 +121,7 @@ button.mini, a.mini {
   background: linear-gradient(to right, #9E125E, #FE7131);
 }
 
-#home-link > *,
+#home-link>*,
 #home-link {
   padding: 0 !important;
   text-decoration: none;

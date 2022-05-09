@@ -25,9 +25,9 @@ export class TopCards extends React.PureComponent<IProps> {
     const { Card, state: { cards }, props: { visible } } = this;
     if (!Card) return;
     return (
-      <Grid container justify="center">
+      <Grid container justifyContent="center">
         {cards.map((cardData, index) =>
-          <Zoom in={visible} timeout={(index + 1) * 400}>
+          <Zoom in={visible} key={index} timeout={(index + 1) * 400}>
             <Grid item md={4} sm={6} xs={12}>
               <Card data={cardData} full />
             </Grid>
