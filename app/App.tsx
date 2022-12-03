@@ -5,7 +5,7 @@ import { Grid, Toolbar, Button, Avatar, Typography, Hidden } from '@material-ui/
 import { url, colors } from './utils/db';
 import { Optimize } from './utils/Optimize';
 import { Home } from './home/Home';
-import { Cards } from './cards/Cards';
+import { Certificates, Events, Projects } from './cards/Cards';
 import { Skills } from './skills/Skills';
 import { Profiles } from './profiles/Profiles';
 import { Timeline } from './timeline/Timeline';
@@ -16,11 +16,11 @@ class App extends React.Component {
   public state = { page: 'home', mounted: true };
   private pages: Record<string, React.JSXElementConstructor<any>> = {
     home: () => <Home goto={this.goto.bind(this)} />,
-    projects: () => <Cards type="Project" />,
+    projects: () => <Projects />,
     skills: () => <Skills />,
-    events: () => <Cards type="Event" />,
+    events: () => <Events />,
     profiles: () => <Profiles />,
-    certificates: () => <Cards type="Cert" />,
+    certificates: () => <Certificates />,
     timeline: () => <Timeline />
   };
   private buttonColor = (page: string, index: number) => ({

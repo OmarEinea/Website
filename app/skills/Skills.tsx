@@ -6,26 +6,23 @@ import { Circle } from './widgets/Circle';
 import { Line } from './widgets/Line';
 import './Skills.css';
 
-type ISkillData = [string, [string, number][]];
+export enum SkillShape {
+  circle = 'circle',
+  line = 'line',
+}
 
-export class Skills extends React.Component<{}, { circles: ISkillData[], lines: ISkillData[] }> {
-  private processData = ({ order, ...skills }: { order: any, [skill: string]: Record<string, number> }) => {
-    const skillsData: ISkillData[] = [];
-    for (const key in skills) {
-      const data = Object.entries(skills[key]).sort((a, b) => b[1] - a[1]);
-      skillsData.push([key, data]);
-    }
-    const orderedSkills: ISkillData[] = [];
-    order.split(',').map((i: number) => orderedSkills.push(skillsData[i - 1]));
-    return orderedSkills;
-  };
+interface ISkillsSection {
+  section: string;
+  type: SkillShape;
+  items: Record<string, number>;
+}
 
+export class Skills extends React.Component<{}, { circles: ISkillsSection[], lines: ISkillsSection[] }> {
   async componentWillMount() {
-    const { circles, lines } = await get('skills');
-    this.setState({
-      circles: this.processData(circles),
-      lines: this.processData(lines)
-    });
+    const skills = await get<ISkillsSection[]>('skills');
+    const circles = skills.filter(s => s.type === SkillShape.circle);
+    const lines = skills.filter(s => s.type === SkillShape.line);
+    this.setState({ circles, lines });
   }
 
   render() {
@@ -33,26 +30,26 @@ export class Skills extends React.Component<{}, { circles: ISkillData[], lines: 
     if (!state) return <Loading />;
     return (
       <Grid container className="container" style={{ marginBottom: 24 }}>
-        {state.circles.map(([category, skills], i) =>
+        {state.circles.map(({ section, items }, i) =>
           <Grid container key={i} justifyContent="center">
             <Fade in>
-              <Typography variant="h4" className="category">{category}</Typography>
+              <Typography variant="h4" className="category">{section}</Typography>
             </Fade>
-            {skills.map((skill, index) =>
+            {Object.entries(items).map(([name, rate], index) =>
               <Grow in key={index} timeout={(index + 1) * 200}>
                 <Paper style={{ margin: 8 }} elevation={1}>
-                  <Circle skill={skill} />
+                  <Circle name={name} rate={rate} />
                 </Paper>
               </Grow>
             )}
           </Grid>
         )}
         <div style={{ width: '100%' }}>
-          {state.lines.map(([category, skills], i) =>
+          {state.lines.map(({ section, items }, i) =>
             <div key={i} className="lines-list">
-              <Typography variant="h4" className="category">{category}</Typography>
+              <Typography variant="h4" className="category">{section}</Typography>
               <Paper style={{ margin: 8, padding: '12px 8px 16px' }} elevation={1}>
-                {skills.map((skill, i) => <Line key={i} skill={skill} />)}
+                {Object.entries(items).map(([name, rate], i) => <Line key={i} name={name} rate={rate} />)}
               </Paper>
             </div>
           )}

@@ -10,11 +10,7 @@ export interface IStackOverflowData {
   bronze: number;
 }
 
-interface IProps {
-  data: IStackOverflowData;
-}
-
-export class StackOverflow extends React.PureComponent<IProps> {
+export class StackOverflow extends React.PureComponent<{ data: IStackOverflowData }> {
   render() {
     const { reputation, gold, silver, bronze } = this.props.data;
     return (

@@ -2,9 +2,9 @@ import React from 'react';
 import { Grid, Typography, CircularProgress, Tooltip } from '@material-ui/core';
 import { skill } from '../../utils/db';
 
-export class Circle extends React.PureComponent<{ skill: [string, number] }> {
+export class Circle extends React.PureComponent<{ name: string, rate: number }> {
   render() {
-    const [name, rate] = this.props.skill;
+    const { name, rate } = this.props;
     return (
       <Grid item direction="column" alignItems="center" style={{ margin: 16 }}>
         <Tooltip title={rate + '%'} placement="top">

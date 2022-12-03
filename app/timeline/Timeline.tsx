@@ -5,6 +5,13 @@ import { Loading } from '../utils/Loading';
 import { get } from '../utils/db';
 import './Timeline.css';
 
+interface ITimeline {
+  years: Record<string, string>;
+  cities: Record<string, string>;
+  institutes: Record<string, string>;
+  events: Record<string, string>;
+}
+
 type IItemsMap = Record<string, [string[], number]>;
 
 interface IState {
@@ -32,7 +39,7 @@ export class Timeline extends React.Component<{}, IState> {
 
   async componentWillMount() {
     this.onResize();
-    const { years, cities, institutes, events } = await get('timeline');
+    const { years, cities, institutes, events } = await get<ITimeline>('timeline');
     this.setState({
       years: Object.entries<string>(years).slice(1),
       cities: this.structureItems(cities),

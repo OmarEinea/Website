@@ -13,11 +13,11 @@ export const colors = ['#C4086E', '#Cf1D61', '#DB3255', '#E64749', '#F25C3D', '#
 export const url = (image: string) => `/images/${image.replace(' ', '%20')}`;
 export const skill = (name: string) => url(`skills/${name}.png`);
 export const profile = (name: string) => url(`profiles/${name}/logo.png`);
-export const get = async <T>(query: string) => {
-  const page = query.split('/')[0];
+export const get = async <T>(page: string) => {
   const cache = getCache<T>(page);
   if (cache) return cache;
-  const data: T = await fetch(`/text/${page}.json`).then(data => data.json());
+  const response = await fetch(`/text/${page}.json`);
+  const data: T = await response.json();
   setCache(page, data);
   return data;
 };

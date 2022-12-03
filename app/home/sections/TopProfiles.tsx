@@ -6,7 +6,7 @@ import { IXdaDevelopersData, XdaDevelopers } from '../../profiles/widgets/XdaDev
 
 interface IProps {
   visible: boolean;
-  data: [string, string][];
+  data: ({ title: string } & (IGithubData | IStackOverflowData | IXdaDevelopersData))[];
 }
 
 interface IState {
@@ -19,7 +19,7 @@ export class TopProfiles extends React.PureComponent<IProps, IState> {
   public state = { GitHub: {}, StackOverflow: {}, XdaDevelopers: {} } as IState;
 
   componentWillReceiveProps(props: IProps) {
-    if (props.data) this.setState(Object.assign({}, ...props.data.map(([k, v]) => ({ [k]: v }))));
+    if (props.data) this.setState({ ...props.data.map(profile => ({ [profile.title]: profile })) } as any);
   }
 
   render() {

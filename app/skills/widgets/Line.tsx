@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid, Typography, Tooltip } from '@material-ui/core';
 
-export class Line extends React.PureComponent<{ skill: [string, number] }> {
+export class Line extends React.PureComponent<{ name: string, rate: number }> {
   render() {
-    const [name, rate] = this.props.skill;
+    const { name, rate } = this.props;
     return (
       <Grid item direction="column" style={{ padding: '12px 16px' }}>
         <Typography variant="h6" style={{ color: '#424242', marginBottom: 6, lineHeight: 1.3 }}>

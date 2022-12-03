@@ -2,17 +2,16 @@ import React from 'react';
 import { ClickAwayListener, Typography, Collapse, CardActions } from '@material-ui/core';
 import { Card, CardMedia, Button, IconButton } from '@material-ui/core';
 import { Gallery } from '../../utils/gallery/Gallery';
+import { IEventCard } from '../interfaces';
 import { url } from '../../utils/db';
 import './Card.css';
 
-type IData = [string, { desc: string, place: string, images: string, preview: string }];
-
-export class EventCard extends React.PureComponent<{ data: IData }> {
+export class EventCard extends React.PureComponent<{ data: IEventCard }> {
   public state = { text: false, image: false, scroll: false };
 
   render() {
     const { text, image, scroll } = this.state;
-    const [title, { desc, place, images, preview }] = this.props.data;
+    const { title, subtitle, location, images, preview } = this.props.data;
     return (
       <Card className="card">
         <CardMedia onClick={() => this.setState({ image: true })}
@@ -37,9 +36,9 @@ export class EventCard extends React.PureComponent<{ data: IData }> {
             </CardActions>
             <div style={{ margin: 16, marginTop: text ? -8 : 0, marginBottom: text ? 14 : 6 }}>
               <Typography variant="caption" style={{ color: '#616161' }} noWrap>
-                <i className="fas fa-map-marker-alt" style={{ marginLeft: 1, marginRight: 2 }} /> {place}
+                <i className="fas fa-map-marker-alt" style={{ marginLeft: 1, marginRight: 2 }} /> {location}
               </Typography>
-              <Typography variant="body2" style={{ marginTop: 12 }}>{desc}</Typography>
+              <Typography variant="body2" style={{ marginTop: 12 }}>{subtitle}</Typography>
             </div>
           </Collapse>
         </ClickAwayListener>

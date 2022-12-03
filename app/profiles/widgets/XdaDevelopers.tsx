@@ -9,11 +9,7 @@ export interface IXdaDevelopersData {
   threads: number;
 }
 
-interface IProps {
-  data: IXdaDevelopersData;
-}
-
-export class XdaDevelopers extends React.PureComponent<IProps>{
+export class XdaDevelopers extends React.PureComponent<{ data: IXdaDevelopersData }>{
   render() {
     const { thanks, posts, threads } = this.props.data;
     return (

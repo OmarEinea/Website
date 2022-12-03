@@ -1,74 +1,72 @@
 import React from 'react';
 import { Grid, Typography, Avatar, Paper, Button, Grow } from '@material-ui/core';
 import { Table, TableBody, TableRow, TableCell } from '@material-ui/core';
+import { IPaperData, IPaper, PaperType } from '../interfaces';
 import { url, colors } from '../../utils/db';
-import './Intro.css';
+import './Introduction.css';
 
 interface IProps {
-  data?: IData;
+  papers: IPaperData[];
+  resume: string;
 }
 
 interface IState {
-  content: IContent;
+  papers: IPaper[];
   resume: string;
   expand?: string;
 }
 
-type IData = { resume: any, [paper: string]: string[]; };
-type IContent = Record<string, React.ReactElement | React.ReactElement[]>;
 const third = 33.333;
 
-export class Intro extends React.Component<IProps, IState> {
-  public state: IState = { content: {}, resume: 'resume.pdf' };
-  private papers = Object.entries({
-    Occupation: { icon: 'address-card' },
-    Origin: { style: { top: `${third}%` }, icon: 'globe-africa' },
-    Discipline: { style: { top: `${2 * third}%` }, icon: 'pencil-ruler' },
-    Goals: { style: { left: `${third}%`, top: `${2 * third}%` }, icon: 'check-double' },
-    Education: { style: { left: `${third}%` }, icon: 'user-graduate' },
-    Experience: { style: { left: `${2 * third}%` }, icon: 'briefcase' },
-    Publications: { style: { left: `${2 * third}%`, top: `${third}%` }, icon: 'clipboard' }
-  });
-
-  private updateContent = (data: IData | undefined) => {
-    if (!data) return;
-    const content: IContent = {};
-    const { resume, ...papers } = data;
-    this.papers.map(([title], index) => {
-      if (index <= 3) {
-        content[title] = papers[title].slice(1).map((line, i) => {
-          const [text, icon] = line.split(';').reverse();
-          const [body, head] = text.split(':').reverse();
-          return <Typography key={i} className="line" variant="subtitle1">
-            {icon && <i className={'fas fa-fw fa-' + icon} style={{ marginRight: 8 }} />}
-            {head && <b>{head}:</b>}{body}
-          </Typography>;
-        });
-      } else {
-        content[title] = <Table style={{ marginTop: 8 }}>
-          <TableBody>
-            {papers[title].map((row, i) =>
-              <TableRow key={i}>
-                {row.split(',').map((cell, j) =>
-                  <TableCell key={j} dangerouslySetInnerHTML={{ __html: cell }}
-                    style={{ padding: '16px 12px', fontSize: '0.82rem' }} />
-                )}
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>;
-      }
-    });
-    this.setState({ content, resume });
+export class Introduction extends React.Component<IProps, IState> {
+  public state: IState = { papers: [], resume: 'resume.pdf' };
+  private papersStyles: Record<string, React.CSSProperties | undefined> = {
+    Origin: { top: `${third}%` },
+    Discipline: { top: `${2 * third}%` },
+    Goals: { left: `${third}%`, top: `${2 * third}%` },
+    Education: { left: `${third}%` },
+    Experience: { left: `${2 * third}%` },
+    Publications: { left: `${2 * third}%`, top: `${third}%` },
   };
 
-  constructor(props: IProps) {
-    super(props);
-    this.updateContent(props.data);
-  }
+  private updateContent = (data: IProps) => {
+    if (!data.papers) return;
+    const papers = data.papers.reduce((papers, { title, icon, type, items }) => {
+      if (type === PaperType.list) {
+        papers.push({
+          title, icon, element: items.slice(1).map((line, i) => {
+            const [text, icon] = line.split(';').reverse();
+            const [body, head] = text.split(':').reverse();
+            return <Typography key={i} className="line" variant="subtitle1">
+              {icon && <i className={'fas fa-fw fa-' + icon} style={{ marginRight: 8 }} />}
+              {head && <b>{head}:</b>}{body}
+            </Typography>;
+          })
+        });
+      } else if (type === PaperType.table) {
+        papers.push({
+          title, icon, element: <Table style={{ marginTop: 8 }}>
+            <TableBody>
+              {items.map((row, i) =>
+                <TableRow key={i}>
+                  {row.split(',').map((cell, j) =>
+                    <TableCell key={j} dangerouslySetInnerHTML={{ __html: cell }}
+                      style={{ padding: '16px 12px', fontSize: '0.82rem' }} />
+                  )}
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        });
+      }
+      return papers;
+    }, [] as IPaper[]);
+    this.setState({ papers, resume: data.resume });
+  };
 
   componentWillReceiveProps(props: IProps) {
-    this.updateContent(props.data);
+    if (props.papers.length === this.state.papers.length) return;
+    this.updateContent(props);
   }
 
   openResume(event: React.MouseEvent) {
@@ -76,12 +74,8 @@ export class Intro extends React.Component<IProps, IState> {
     window.open(url('my/' + this.state.resume), '_self');
   }
 
-  shouldComponentUpdate(nextProps: IProps, nextState: IState) {
-    return this.state.expand !== nextState.expand;
-  }
-
   render() {
-    const { content, expand } = this.state;
+    const { papers, expand } = this.state;
     return (
       <Grow in>
         <Grid container className="container" style={{ paddingBottom: 80 }}>
@@ -114,18 +108,19 @@ export class Intro extends React.Component<IProps, IState> {
           </Grid>
           <Grid item md={8} xs={12} id="bio">
             <Grid container>
-              {this.papers.map(([title, paper], index) =>
-                <Paper key={index} style={paper.style} elevation={expand === title ? 3 : 1}
+              {papers.map(({ title, element, icon }, index) => {
+                const style = this.papersStyles[title];
+                return <Paper key={index} style={style} elevation={expand === title ? 3 : 1}
                   className={'paper' + (expand === title ? ' expand' : '')}
                   onMouseEnter={() => this.setState({ expand: title })}
                   onMouseLeave={() => this.setState({ expand: undefined })}>
-                  <div style={{ borderTopColor: colors[index] }} className="content">{content[title]}</div>
+                  <div style={{ borderTopColor: colors[index] }} className="content">{element}</div>
                   <Grid container className="title" justifyContent="center">
-                    <i className={'fas fa-fw fa-' + paper.icon} />
+                    <i className={'fas fa-fw fa-' + icon} />
                     <Typography><span>{title}</span></Typography>
                   </Grid>
                 </Paper>
-              )}
+              })}
               <div className="paper" style={{ left: `${2 * third}%`, top: `${2 * third}%` }}>
                 <Grid container className="title" justifyContent="center" onClick={() => {
                   const bioElement = document.getElementById('bio');

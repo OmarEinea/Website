@@ -6,7 +6,7 @@ import './Gallery.css';
 
 interface IProps {
   title: string;
-  images?: string;
+  images?: string[];
   folder: string;
   format?: string;
   onClose: () => any;
@@ -35,9 +35,9 @@ export class Gallery extends React.Component<IProps> {
   componentWillMount() {
     const { title, images, folder, format = 'jpg' } = this.props;
     this.urls = [];
-    if (images) {
-      this.images = images.split(';');
-      for (let i = 1; i <= this.images.length; i++) {
+    if (images && images.length > 0) {
+      this.images = images;
+      for (let i = 1; i <= images.length; i++) {
         this.urls.push(`${folder}/${title}/${i}.${format}`);
       }
     } else {

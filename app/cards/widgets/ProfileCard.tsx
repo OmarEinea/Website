@@ -4,7 +4,7 @@ import { Gallery } from '../../utils/gallery/Gallery';
 import { url, profile } from '../../utils/db';
 import './Card.css';
 
-export class ProfileCard extends React.PureComponent<{ name: string, images: string, use?: string }> {
+export class ProfileCard extends React.PureComponent<{ name: string, images: string[], use?: string }> {
   public state = { image: false };
 
   render() {

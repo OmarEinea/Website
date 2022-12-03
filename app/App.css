@@ -88,6 +88,11 @@ a.mini {
   padding: 0;
 }
 
+.invisible {
+  opacity: 0;
+  pointer-events: none;
+}
+
 #toolbar {
   position: relative;
   justify-content: center;

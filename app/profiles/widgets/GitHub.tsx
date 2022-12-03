@@ -9,11 +9,7 @@ export interface IGithubData {
   stars: number;
 }
 
-interface IProps {
-  data: IGithubData;
-}
-
-export class GitHub extends React.PureComponent<IProps> {
+export class GitHub extends React.PureComponent<{ data: IGithubData }> {
   render() {
     const { repos, followers, stars } = this.props.data;
     return (

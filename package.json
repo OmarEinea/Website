@@ -4,7 +4,7 @@
   "description": "My Interactive Resume Website",
   "repository": "github:OmarEinea/Website",
   "license": "MIT",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "main": "webpack.config.ts",
   "devDependencies": {
     "@material-ui/core": "^4.12.4",

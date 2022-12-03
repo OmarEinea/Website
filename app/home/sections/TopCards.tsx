@@ -1,15 +1,24 @@
 import React from 'react';
 import { Grid, Zoom } from '@material-ui/core';
-import cardTypes from '../../cards/widgets';
+import { CertificateCard } from '../../cards/widgets/CertificateCard';
+import { EventCard } from '../../cards/widgets/EventCard';
+import { ProjectCard } from '../../cards/widgets/ProjectCard';
+import { ICardData } from '../../cards/interfaces';
+
+const cardTypes = {
+  Project: ProjectCard,
+  Event: EventCard,
+  Certificate: CertificateCard
+};
 
 interface IProps {
   type: keyof typeof cardTypes;
   visible: boolean;
-  data: any[];
+  data: ICardData[];
 }
 
 export class TopCards extends React.PureComponent<IProps> {
-  public state = { cards: [] as any[] };
+  public state = { cards: [] };
   private Card: React.JSXElementConstructor<any> | undefined;
 
   componentWillMount() {

@@ -8,63 +8,70 @@ import { StackOverflow, IStackOverflowData } from './widgets/StackOverflow';
 import { XdaDevelopers, IXdaDevelopersData } from './widgets/XdaDevelopers';
 import './Profiles.css';
 
+interface IProfilesSection {
+  section: string;
+  type?: 'custom';
+  items: {
+    title: string;
+    images: string[];
+    [key: string]: any;
+  }[];
+}
+
 interface IState {
-  allProfiles: [string, [string, any]][];
-  dev: {
-    GitHub: IGithubData & { images: string };
-    StackOverflow: IStackOverflowData & { images: string };
-    XdaDevelopers: IXdaDevelopersData & { images: string };
+  otherProfiles: IProfilesSection[];
+  customProfiles: {
+    GitHub: IGithubData & { images: string[] };
+    StackOverflow: IStackOverflowData & { images: string[] };
+    XdaDevelopers: IXdaDevelopersData & { images: string[] };
   };
 }
 
 export class Profiles extends React.Component<any, IState> {
   async componentWillMount() {
-    const { Development, order, ...profiles } = await get('profiles');
-    for (const key in profiles) {
-      profiles[key] = Object.entries(profiles[key]);
-    }
-    const profilesData = Object.entries(profiles);
-    const orderedCategories = [];
-    order.split(',').map((index: number) => orderedCategories.push(profilesData[index - 1]));
-    this.setState({ dev: Development, allProfiles: profilesData });
+    const profiles = await get<IProfilesSection[]>('profiles');
+    const customSection = (profiles.find(p => p.type === 'custom') || {}).items || [];
+    const customProfiles = customSection.reduce((map, p) => ({ ...map, [p.title]: p }), {} as any);
+    const otherProfiles = profiles.filter(p => p.type !== 'custom');
+    this.setState({ otherProfiles, customProfiles });
   }
 
   render() {
-    const { dev, allProfiles } = this.state || {};
-    if (!dev) return <Loading />;
+    const { customProfiles, otherProfiles } = this.state || {};
+    if (!customProfiles) return <Loading />;
     return (
       <Grid container className="container" style={{ marginBottom: 24, marginTop: 8 }}>
         <Grid container justifyContent="center">
           <Grow in timeout={600}>
             <Grid item md={4} sm={6} xs={12}>
-              <ProfileCard name="GitHub" images={dev.GitHub.images}>
-                <GitHub data={dev.GitHub} />
+              <ProfileCard name="GitHub" images={customProfiles.GitHub.images}>
+                <GitHub data={customProfiles.GitHub} />
               </ProfileCard>
             </Grid>
           </Grow>
           <Grow in timeout={800}>
             <Grid item md={4} sm={6} xs={12}>
-              <ProfileCard name="StackOverflow" images={dev.StackOverflow.images}>
-                <StackOverflow data={dev.StackOverflow} />
+              <ProfileCard name="StackOverflow" images={customProfiles.StackOverflow.images}>
+                <StackOverflow data={customProfiles.StackOverflow} />
               </ProfileCard>
             </Grid>
           </Grow>
           <Grow in timeout={1000}>
             <Grid item md={4} sm={6} xs={12}>
-              <ProfileCard name="XdaDevelopers" images={dev.XdaDevelopers.images}>
-                <XdaDevelopers data={dev.XdaDevelopers} />
+              <ProfileCard name="XdaDevelopers" images={customProfiles.XdaDevelopers.images}>
+                <XdaDevelopers data={customProfiles.XdaDevelopers} />
               </ProfileCard>
             </Grid>
           </Grow>
         </Grid>
-        {allProfiles.map(([category, profiles], i) =>
+        {otherProfiles.map(({ section, items }, i) =>
           <Grid container key={i} justifyContent="center">
             <Fade in>
-              <Typography variant="h4" className="category">{category}</Typography>
+              <Typography variant="h4" className="category">{section}</Typography>
             </Fade>
-            {profiles.map(([title, data], i) =>
+            {items.map((profile, i) =>
               <Grid item key={i} md={4} sm={6} xs={12}>
-                <ProfileCard name={title} images={data.images} use={data.use} />
+                <ProfileCard name={profile.title} images={profile.images} use={profile.use} />
               </Grid>
             )}
           </Grid>
