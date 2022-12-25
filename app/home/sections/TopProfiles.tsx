@@ -19,7 +19,13 @@ export class TopProfiles extends React.PureComponent<IProps, IState> {
   public state = { GitHub: {}, StackOverflow: {}, XdaDevelopers: {} } as IState;
 
   componentWillReceiveProps(props: IProps) {
-    if (props.data) this.setState({ ...props.data.map(profile => ({ [profile.title]: profile })) } as any);
+    if (!props.data) return;
+    this.setState({
+      ...props.data.reduce((map, profile) => {
+        map[profile.title] = profile;
+        return map;
+      }, {} as any)
+    });
   }
 
   render() {

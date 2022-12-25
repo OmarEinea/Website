@@ -64,8 +64,8 @@ export class Home extends React.Component<IProps, IState> {
                     <i className={'fas fa-' + icon} style={{ paddingRight: 16 }} />
                     {title}
                     <Tooltip title="View More" placement="right" enterDelay={100}>
-                      <IconButton onClick={event => this.props.goto(title, event)}
-                        href={title} style={{ marginLeft: 8, marginTop: -12 }} className="mini">
+                      <IconButton onClick={event => this.props.goto(id, event)}
+                        href={id} style={{ marginLeft: 8, marginTop: -12 }} className="mini">
                         <i className="fas fa-angle-right" style={{ fontSize: 20, opacity: .7 }} />
                       </IconButton>
                     </Tooltip>

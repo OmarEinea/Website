@@ -16,6 +16,7 @@ export interface IPaperData {
   type: PaperType;
   icon: string;
   items: string[];
+  mini: boolean;
 }
 
 export enum PaperType {
@@ -27,4 +28,5 @@ export interface IPaper {
   title: string;
   icon: string;
   element: React.ReactElement | React.ReactElement[];
+  mini: boolean;
 }

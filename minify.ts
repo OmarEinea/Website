@@ -16,7 +16,7 @@ const put = (text: string) => {
 };
 
 function* safeVar(text: string) {
-  for (let i = -1; i < letters.length; i++) {
+  for (let i = 0; i < letters.length; i++) {
     for (let j = 0; j < letters.length; j++) {
       const letter = letters.charAt(i) + letters.charAt(j);
       if (isFree(letter, text))

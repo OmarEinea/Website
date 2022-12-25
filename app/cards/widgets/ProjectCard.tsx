@@ -18,7 +18,7 @@ export class ProjectCard extends React.PureComponent<{ full?: boolean, data: IPr
         <ClickAwayListener onClickAway={() => { if (text) this.setState({ text: !text }) }}>
           <Collapse collapsedSize={`${full ? 75 : 54}px`} timeout="auto" className={'collapse down' + (scroll ? ' scroll' : '')}
             in={text} onEntered={() => this.setState({ scroll: true })} onExit={() => this.setState({ scroll: false })}>
-            <CardHeader subheader={full && type} style={{ padding: '14px 16px', height: 26 }}
+            <CardHeader subheader={full && type} style={{ padding: '14px 16px', height: full ? 'auto' : 26 }}
               title={<b style={{ fontSize: 19, color: '#424242' }}>{title}</b>}
               avatar={full && <Avatar src={url(`projects/${title}/logo.png`)} />}
               action={

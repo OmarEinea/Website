@@ -31,10 +31,10 @@ export class Introduction extends React.Component<IProps, IState> {
 
   private updateContent = (data: IProps) => {
     if (!data.papers) return;
-    const papers = data.papers.reduce((papers, { title, icon, type, items }) => {
+    const papers = data.papers.reduce((papers, { title, icon, type, items, mini }) => {
       if (type === PaperType.list) {
         papers.push({
-          title, icon, element: items.slice(1).map((line, i) => {
+          title, icon, mini, element: items.slice(1).map((line, i) => {
             const [text, icon] = line.split(';').reverse();
             const [body, head] = text.split(':').reverse();
             return <Typography key={i} className="line" variant="subtitle1">
@@ -45,7 +45,7 @@ export class Introduction extends React.Component<IProps, IState> {
         });
       } else if (type === PaperType.table) {
         papers.push({
-          title, icon, element: <Table style={{ marginTop: 8 }}>
+          title, icon, mini, element: <Table style={{ marginTop: 8 }}>
             <TableBody>
               {items.map((row, i) =>
                 <TableRow key={i}>
@@ -108,10 +108,10 @@ export class Introduction extends React.Component<IProps, IState> {
           </Grid>
           <Grid item md={8} xs={12} id="bio">
             <Grid container>
-              {papers.map(({ title, element, icon }, index) => {
+              {papers.map(({ title, element, icon, mini }, index) => {
                 const style = this.papersStyles[title];
                 return <Paper key={index} style={style} elevation={expand === title ? 3 : 1}
-                  className={'paper' + (expand === title ? ' expand' : '')}
+                  className={'paper' + (expand === title ? ' expand' : '') + (mini ? ' mini' : '')}
                   onMouseEnter={() => this.setState({ expand: title })}
                   onMouseLeave={() => this.setState({ expand: undefined })}>
                   <div style={{ borderTopColor: colors[index] }} className="content">{element}</div>

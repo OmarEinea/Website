@@ -20,7 +20,7 @@ export class Footer extends React.PureComponent {
             <IconButton href="mailto:hello@omareinea.com">
               <i className="fas fa-envelope" />
             </IconButton>
-            {['linkedin', 'instagram', 'google-plus', 'facebook'].map((profile, i) =>
+            {['linkedin', 'instagram', 'facebook'].map((profile, i) =>
               <IconButton key={i} target="_blank" href={'my/' + profile}>
                 <i className={'fab fa-' + profile} />
               </IconButton>
