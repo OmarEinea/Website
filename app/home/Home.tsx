@@ -20,7 +20,7 @@ interface IState {
 }
 
 export class Home extends React.Component<IProps, IState> {
-  public state: IState = { data: { resume: '', papers: [], sections: [] }, entered: 0 };
+  public state: IState = { data: { papers: [], sections: [] }, entered: 0 };
   private tags: HTMLElement[] = [];
   private prevScroll = 0;
   private sections: Record<string, React.JSXElementConstructor<any>> = {
@@ -49,11 +49,11 @@ export class Home extends React.Component<IProps, IState> {
   }
 
   render() {
-    const { data, entered } = this.state;
+    const { data: { papers, resume, title, sections }, entered } = this.state;
     return (
       <Grid container>
-        <Introduction papers={data.papers} resume={data.resume} />
-        {data.sections.map(({ id, title, icon, items }, index) => {
+        <Introduction papers={papers} title={title} resume={resume} />
+        {sections.map(({ id, title, icon, items }, index) => {
           const Section = this.sections[id];
           return <Grid container key={index} style={{ background: index === 0 ? '#90A4AE55' : index % 2 === 1 ? '#FFFFFFAA' : '' }}>
             <Grid container className="container" style={{ paddingTop: 40, paddingBottom: 80, minHeight: 512 }}>

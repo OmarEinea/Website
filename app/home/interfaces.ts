@@ -1,5 +1,6 @@
 export interface IHomeData {
-  resume: string;
+  resume?: string;
+  title?: string;
   papers: IPaperData[];
   sections: ISectionData[];
 }

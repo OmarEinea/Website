@@ -7,19 +7,21 @@ import './Introduction.css';
 
 interface IProps {
   papers: IPaperData[];
-  resume: string;
+  resume?: string;
+  title?: string;
 }
 
 interface IState {
   papers: IPaper[];
   resume: string;
+  title: string;
   expand?: string;
 }
 
 const third = 33.333;
 
 export class Introduction extends React.Component<IProps, IState> {
-  public state: IState = { papers: [], resume: 'resume.pdf' };
+  public state: IState = { papers: [], resume: '', title: '' };
   private papersStyles: Record<string, React.CSSProperties | undefined> = {
     Origin: { top: `${third}%` },
     Discipline: { top: `${2 * third}%` },
@@ -61,7 +63,8 @@ export class Introduction extends React.Component<IProps, IState> {
       }
       return papers;
     }, [] as IPaper[]);
-    this.setState({ papers, resume: data.resume });
+    const { title='Developer', resume='resume.pdf' } = data;
+    this.setState({ papers, title, resume });
   };
 
   componentWillReceiveProps(props: IProps) {
@@ -75,7 +78,7 @@ export class Introduction extends React.Component<IProps, IState> {
   }
 
   render() {
-    const { papers, expand } = this.state;
+    const { papers, title, expand } = this.state;
     return (
       <Grow in>
         <Grid container className="container" style={{ paddingBottom: 80 }}>
@@ -90,7 +93,7 @@ export class Introduction extends React.Component<IProps, IState> {
               Omar Einea
             </Typography>
             <Typography style={{ fontSize: 18, color: '#616161', whiteSpace: 'nowrap' }}>
-              App Developer. Web, Mobile & PC.
+              {title}
             </Typography>
             <Button variant="contained" href="my/resume" onClick={this.openResume.bind(this)}>
               <i className="fas fa-file-download" style={{ marginRight: 8, fontSize: 16 }} />
