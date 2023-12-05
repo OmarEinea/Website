@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, IconButton, Tooltip, Fade } from '@material-ui/core';
+import { Grid, Typography, IconButton, Tooltip, Fade } from '@mui/material';
 import { Introduction } from './introduction/Introduction';
 import { TopProfiles } from './sections/TopProfiles';
 import { TopSkills } from './sections/TopSkills';

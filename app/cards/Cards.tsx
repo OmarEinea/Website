@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Grow, Fade } from '@material-ui/core';
+import { Grid, Typography, Grow, Fade } from '@mui/material';
 import { get } from '../utils/db';
 import { ICardsSection, ICertificateCard, IEventCard, IProjectCard } from './interfaces';
 import { CertificateCard } from './widgets/CertificateCard';

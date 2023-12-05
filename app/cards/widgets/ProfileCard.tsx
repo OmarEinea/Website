@@ -1,10 +1,18 @@
-import React from 'react';
-import { Card, CardMedia, Button, Typography, Grid } from '@material-ui/core';
+import React, { ReactNode } from 'react';
+import { Card, CardMedia, Button, Typography, Grid } from '@mui/material';
 import { Gallery } from '../../utils/gallery/Gallery';
 import { url, profile } from '../../utils/db';
 import './Card.css';
 
-export class ProfileCard extends React.PureComponent<{ name: string, images: string[], use?: string }> {
+
+interface IProfileCardProps {
+  name: string;
+  images: string[];
+  use?: string;
+  children?: ReactNode;
+}
+
+export class ProfileCard extends React.PureComponent<IProfileCardProps> {
   public state = { image: false };
 
   render() {

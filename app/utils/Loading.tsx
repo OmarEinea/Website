@@ -1,9 +1,9 @@
 import React from 'react';
-import { Grid, CircularProgress } from '@material-ui/core';
+import { Grid, CircularProgress } from '@mui/material';
 import { colors } from './db';
 
 export class Loading extends React.Component<{ style?: Record<string, any> }, { index: number }> {
-  private colorChanger: NodeJS.Timer | undefined;
+  private colorChanger: NodeJS.Timeout | undefined;
   public state = { index: colors.length - 1 };
 
   componentWillMount() {

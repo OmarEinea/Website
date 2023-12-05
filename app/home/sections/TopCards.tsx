@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Zoom } from '@material-ui/core';
+import { Grid, Zoom } from '@mui/material';
 import { CertificateCard } from '../../cards/widgets/CertificateCard';
 import { EventCard } from '../../cards/widgets/EventCard';
 import { ProjectCard } from '../../cards/widgets/ProjectCard';

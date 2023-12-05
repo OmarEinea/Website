@@ -139,7 +139,7 @@
   font-weight: 500;
 }
 
-@media screen and (min-width: 960px) {
+@media screen and (min-width: 900px) {
   #intro a {
     margin-bottom: 0;
   }

@@ -1,6 +1,6 @@
 import React from 'react';
-import { ClickAwayListener, Collapse, CardActions, CardHeader, Tooltip } from '@material-ui/core';
-import { Card, CardMedia, Button, IconButton, Avatar, Typography } from '@material-ui/core';
+import { ClickAwayListener, Collapse, CardActions, CardHeader, Tooltip } from '@mui/material';
+import { Card, CardMedia, Button, IconButton, Avatar, Typography } from '@mui/material';
 import { Gallery } from '../../utils/gallery/Gallery';
 import { IProjectCard } from '../interfaces';
 import { url, skill } from '../../utils/db';

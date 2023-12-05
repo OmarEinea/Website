@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, IconButton, Typography } from '@material-ui/core';
+import { Grid, IconButton, Typography } from '@mui/material';
 import { colors, age } from './db';
 
 export class Footer extends React.PureComponent {

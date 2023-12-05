@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid, Typography, Avatar, Paper, Button, Grow } from '@material-ui/core';
-import { Table, TableBody, TableRow, TableCell } from '@material-ui/core';
+import { Grid, Typography, Avatar, Paper, Button, Grow } from '@mui/material';
+import { Table, TableBody, TableRow, TableCell } from '@mui/material';
 import { IPaperData, IPaper, PaperType } from '../interfaces';
 import { url, colors } from '../../utils/db';
 import './Introduction.css';

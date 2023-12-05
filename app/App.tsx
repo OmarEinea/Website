@@ -1,7 +1,7 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { MuiThemeProvider, createTheme, Grow, Zoom, Slide } from '@material-ui/core';
-import { Grid, Toolbar, Button, Avatar, Typography, Hidden } from '@material-ui/core';
+import { createRoot } from 'react-dom/client';
+import { ThemeProvider, createTheme, Grow, Zoom, Slide } from '@mui/material';
+import { Grid, Toolbar, Button, Avatar, Typography, Hidden } from '@mui/material';
 import { url, colors } from './utils/db';
 import { Optimize } from './utils/Optimize';
 import { Home } from './home/Home';
@@ -63,7 +63,7 @@ class App extends React.Component {
       <Grid id="root" container direction="column">
         <div id="top-shadow" />
         <Toolbar id="toolbar" className="container">
-          <Hidden smDown={!isNotHome}>
+          <Hidden mdDown={!isNotHome}>
             <div style={{ width: '34.5%', marginLeft: 12 }} className={isNotHome ? 'show' : 'hide'}>
               <Grow in={isNotHome} timeout={400} unmountOnExit>
                 <a href="/" onClick={(event) => this.goto('home', event)} id="home-link">
@@ -87,20 +87,20 @@ class App extends React.Component {
             <div className="divider" />
           </Zoom>
         </Toolbar>
-        <Grow in={state.mounted} timeout={{ enter: 500, exit: 400 }}>
+        {/* <Grow in={state.mounted} timeout={{ enter: 500, exit: 400 }}> */}
           <Optimize><CurrentPage /></Optimize>
-        </Grow>
+        {/* </Grow> */}
         <Footer />
       </Grid>
     );
   }
 }
 
-render(
-  <MuiThemeProvider theme={createTheme({
+const app = document.getElementById('app');
+if (app) createRoot(app).render(
+  <ThemeProvider theme={createTheme({
     typography: { fontFamily: 'Quicksand' }
   })}>
     <App />
-  </MuiThemeProvider>,
-  document.getElementById('app')
+  </ThemeProvider>
 );

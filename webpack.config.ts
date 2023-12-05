@@ -50,7 +50,7 @@ export default (_: any, { mode }: { mode: string }) => {
     configs.externals = {
       'react': 'React',
       'react-dom': 'ReactDOM',
-      '@material-ui/core': 'MaterialUI'
+      '@mui/material': 'MaterialUI'
     };
   }
   return configs;

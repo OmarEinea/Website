@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Grow } from '@material-ui/core';
+import { Grid, Grow } from '@mui/material';
 import { Circle } from '../../skills/widgets/Circle';
 import { Line } from '../../skills/widgets/Line';
 import { SkillShape } from '../../skills/Skills';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Grow, Fade } from '@material-ui/core';
+import { Grid, Typography, Grow, Fade } from '@mui/material';
 import { get } from '../utils/db';
 import { Loading } from '../utils/Loading';
 import { ProfileCard } from '../cards/widgets/ProfileCard';

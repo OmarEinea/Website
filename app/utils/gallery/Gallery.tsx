@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Modal, Zoom } from '@material-ui/core';
+import { Typography, Modal, Zoom } from '@mui/material';
 import { url } from '../db';
 import { Loading } from '../Loading';
 import './Gallery.css';

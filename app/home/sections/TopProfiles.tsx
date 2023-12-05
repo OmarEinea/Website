@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Grow } from '@material-ui/core';
+import { Grid, Grow } from '@mui/material';
 import { GitHub, IGithubData } from '../../profiles/widgets/GitHub';
 import { IStackOverflowData, StackOverflow } from '../../profiles/widgets/StackOverflow';
 import { IXdaDevelopersData, XdaDevelopers } from '../../profiles/widgets/XdaDevelopers';

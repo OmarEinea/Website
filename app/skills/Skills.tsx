@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Paper, Grow, Fade } from '@material-ui/core';
+import { Grid, Typography, Paper, Grow, Fade } from '@mui/material';
 import { get } from '../utils/db';
 import { Loading } from '../utils/Loading';
 import { Circle } from './widgets/Circle';

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid, Typography, Tooltip, Grow } from '@material-ui/core';
-import { FormControlLabel, RadioGroup, Radio } from '@material-ui/core';
+import { Grid, Typography, Tooltip, Grow } from '@mui/material';
+import { FormControlLabel, RadioGroup, Radio } from '@mui/material';
 import { Loading } from '../utils/Loading';
 import { get } from '../utils/db';
 import './Timeline.css';
