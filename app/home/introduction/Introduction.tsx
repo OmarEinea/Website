@@ -71,7 +71,7 @@ export class Introduction extends React.Component<IProps, IState> {
 
   openResume(event: React.MouseEvent) {
     event.preventDefault();
-    window.open(url('my/' + this.state.resume), '_self');
+    window.open(this.state.resume, '_blank');
   }
 
   render() {
@@ -82,9 +82,9 @@ export class Introduction extends React.Component<IProps, IState> {
           <Grid item md={4} xs={12} id="intro" className="center-text">
             <div style={{ position: 'relative', width: 324, height: 324 }}>
               <Avatar className={'avatar' + (expand !== 'logo' ? ' expand' : '')} style={{ left: 0 }}
-                src={url('my/photo.jpg')} onClick={() => this.setState({ expand: undefined })} />
+                src={url('photo.jpg')} onClick={() => this.setState({ expand: undefined })} />
               <Avatar className={'avatar' + (expand === 'logo' ? ' expand' : '')} style={{ right: 0 }}
-                src={url('my/logo.jpg')} onClick={() => this.setState({ expand: 'logo' })} />
+                src={url('logo.jpg')} onClick={() => this.setState({ expand: 'logo' })} />
             </div>
             <Typography variant="h4" style={{ color: '#4F4D4E', margin: '12px 0' }}>
               Omar Einea

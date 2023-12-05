@@ -28,7 +28,7 @@
   background-color: #DB236B;
 }
 
-#intro a[target] {
+#intro a:not(:first-of-type) {
   min-height: 36px;
   width: 36px;
 }

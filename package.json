@@ -4,7 +4,7 @@
   "description": "My Interactive Resume Website",
   "repository": "github:OmarEinea/Website",
   "license": "MIT",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "main": "webpack.config.ts",
   "devDependencies": {
     "@emotion/react": "^11.11.1",
